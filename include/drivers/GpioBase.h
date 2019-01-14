@@ -5,7 +5,7 @@
 #ifndef RPIFIRMWARE_GPIOBASE_H
 #define RPIFIRMWARE_GPIOBASE_H
 
-#include "hal.h"
+#include "Hal.h"
 
 class GpioBase
 {

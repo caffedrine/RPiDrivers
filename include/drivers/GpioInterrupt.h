@@ -2,7 +2,7 @@
 #define _GPIO_H
 
 #include <iostream>
-#include "hal.h"
+#include "Hal.h"
 #include "GpioBase.h"
 
 typedef void (*level_changed_cb_t)(LogicalLevel);

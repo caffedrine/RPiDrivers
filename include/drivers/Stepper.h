@@ -2,7 +2,7 @@
 #define _STEPPER_H
 
 #include <cstdint>
-#include "hal.h"
+#include "Hal.h"
 
 enum class StepperDirection
 {

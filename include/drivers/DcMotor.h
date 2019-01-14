@@ -6,7 +6,7 @@
 #define _DCMOTOR_H
 
 #include <stdint.h>
-#include "hal.h"
+#include "Hal.h"
 
 enum class MotorDcDirection
 {

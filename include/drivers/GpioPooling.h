@@ -5,7 +5,7 @@
 #ifndef RPIFIRMWARE_GPIOPOOLING_H
 #define RPIFIRMWARE_GPIOPOOLING_H
 
-#include "hal.h"
+#include "Hal.h"
 #include "GpioBase.h"
 #include "utils/time_utils.h"
 

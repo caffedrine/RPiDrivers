@@ -1,5 +1,5 @@
-﻿#ifndef HAL_H
-#define HAL_H
+﻿#ifndef _HAL_H
+#define _HAL_H
 
 #include <stdint.h>
 
@@ -186,4 +186,4 @@ static inline uint32_t _set_gpio_callback_function(int pin, gpioAlertFuncEx_t cb
 
 #define Vfb_SetGpioCallbackFunc(pin, cbf, context)	_set_gpio_callback_function(pin, cbf, context)
 
-#endif // HAL_H
+#endif // _HAL_H

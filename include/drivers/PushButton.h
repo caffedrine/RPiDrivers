@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <cstdint>
-#include "hal.h"
+#include "Hal.h"
 #include "GpioPooling.h"
 
 enum class PushButtonState

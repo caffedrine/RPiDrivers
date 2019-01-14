@@ -2,10 +2,10 @@
 // Created by curiosul on 12.12.18.
 //
 
-#ifndef RPIFIRMWARE_ENCODERINTERRUPT_H
-#define RPIFIRMWARE_ENCODERINTERRUPT_H
+#ifndef _ENCODERINTERRUPT_H
+#define _ENCODERINTERRUPT_H
 
-#include "hal.h"
+#include "Hal.h"
 #include "GpioInterrupt.h"
 
 class EncoderInterrupt : public GpioInterrupt
@@ -34,4 +34,4 @@ protected:
 };
 
 
-#endif //RPIFIRMWARE_ENCODERINTERRUPT_H
+#endif //_ENCODERINTERRUPT_H
