@@ -7,7 +7,7 @@
 
 #include <stdint.h>
 
-#include "GpioPooling.h"
+#include "Gpio/GpioPooling.h"
 
 
 class Encoder : public GpioPooling

@@ -5,7 +5,7 @@
 #ifndef _RELAY_H
 #define _RELAY_H
 
-#include "GpioBase.h"
+#include "Gpio/GpioBase.h"
 
 class Relay : public GpioBase
 {

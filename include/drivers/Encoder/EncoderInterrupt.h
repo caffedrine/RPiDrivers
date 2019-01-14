@@ -6,7 +6,7 @@
 #define _ENCODERINTERRUPT_H
 
 #include "Hal.h"
-#include "GpioInterrupt.h"
+#include "Gpio/GpioInterrupt.h"
 
 class EncoderInterrupt : public GpioInterrupt
 {

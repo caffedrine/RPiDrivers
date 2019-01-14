@@ -4,7 +4,7 @@
 #include <iostream>
 #include <cstdint>
 #include "Hal.h"
-#include "GpioPooling.h"
+#include "Gpio/GpioPooling.h"
 
 enum class PushButtonState
 {

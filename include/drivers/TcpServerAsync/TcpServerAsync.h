@@ -18,7 +18,8 @@
 #include <netinet/in.h>
 #include <sys/time.h>	//FD_SET, FD_ISSET, FD_ZERO macros
 #include <thread>
-#include "Exception.h"
+
+#include "Exception/Exception.h"
 
 class TcpServerAsync
 {

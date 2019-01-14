@@ -6,7 +6,7 @@
 #define _LED_H
 
 #include <utils/time_utils.h>
-#include "GpioBase.h"
+#include "Gpio/GpioBase.h"
 
 class Led : public GpioBase
 {

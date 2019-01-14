@@ -2,18 +2,18 @@
 // Created by curiosul on 1/14/19.
 //
 
-#ifndef _I2C_H
-#define _I2C_H
+#ifndef _I2C_H_
+#define _I2C_H_
 
 #include <stdio.h>
 #include <unistd.h>
-#include <string.h>
-#include <sys/types.h>
-#include <sys/stat.h>
 #include <fcntl.h>
+#include <cstring>
 #include <sys/ioctl.h>
+#include <fcntl.h>
+#include <linux/i2c-dev.h>
 
-#include "Exception.h"
+#include "Exception/Exception.h"
 
 class I2cMaster
 {
@@ -21,11 +21,15 @@ public:
 	explicit I2cMaster(const char *DeviceName);
 	~I2cMaster();
 	
-	void Close();
+	void StartSession(int SlaveAddress);
+	void StopSession();
+	
+	int Write(uint8_t *data, uint16_t len);
+	int Read(uint8_t *recv_buffer, uint16_t max_len = 255);
 	
 private:
 	int hFile = 0;
 };
 
 
-#endif //RPIDRIVERS_I2C_H
+#endif //_I2C_H_

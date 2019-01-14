@@ -2,7 +2,7 @@
 // Created by curiosul on 12.12.18.
 //
 
-#include "EncoderInterrupt.h"
+#include "Encoder/EncoderInterrupt.h"
 
 EncoderInterrupt::EncoderInterrupt(uint8_t _gpio_pin) : GpioInterrupt(_gpio_pin)	/* 1ms debouncing */
 {

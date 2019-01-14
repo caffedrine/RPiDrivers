@@ -10,10 +10,25 @@
 struct Exception : public std::exception
 {
 	std::string s;
-	explicit Exception(std::string ss): s(std::move(ss)) {}
-	Exception(std::string function, std::string ss) : s( function + "(): " + ss ) {}
-	~Exception() throw () {}
-	const char* what() const throw() override { return s.c_str(); }
+	explicit Exception(std::string ss): s(std::move(ss))
+	{
+	
+	}
+	
+	Exception(std::string function, std::string ss) : s("[EXCEPTION] " +  function + "(): " + ss )
+	{
+	
+	}
+	
+	~Exception() throw () override
+	{
+	
+	}
+	
+	const char* what() const throw() override
+	{
+		return s.c_str();
+	}
 };
 
 
