@@ -17,8 +17,7 @@ void SocketCAN::InitSocket(const char *if_name)
 	if( (sockfd = socket(PF_CAN, SOCK_RAW, CAN_RAW)) < 0 )
 	{
 		this->IsConnected = false;
-		perror("socket");
-		throw std::current_exception();
+		throw Exception("SocketCAN::InitSocket", strerror(errno));
 	}
 	
 	/* Check whether interface exists or not */
@@ -38,8 +37,8 @@ void SocketCAN::InitSocket(const char *if_name)
 	if( bind(sockfd, (struct sockaddr *) &addr, sizeof(addr))  == -1)
 	{
 		this->IsConnected = false;
-		perror("binding");
-		throw std::current_exception();
+		throw Exception("SocketCAN::bind", strerror(errno));
+
 	}
 	
 	this->IsConnected = true;
@@ -60,13 +59,11 @@ ssize_t SocketCAN::WriteFrame(can_frame *SendFrame)
 	if( sendBytes < 0 )
 	{
 		this->IsConnected  = false;
-		perror("can raw socket send");
-		throw std::current_exception();
+		throw Exception("SocketCAN::write", strerror(errno));
 	}
 	if( sendBytes < sizeof(struct can_frame) )
 	{
-		fprintf(stderr, "send: incomplete can frame\n");
-		throw std::exception();
+		throw Exception("SocketCAN::write", strerror(errno));
 	}
 	return sendBytes;
 	//cout <<  i++ << ". SEND: 0x" << std::hex << recvFrame.can_id << " # 0x" << std::hex << ((int)recvFrame.can_dlc) << " # " << std::hex << recvFrame.data << endl;
@@ -94,13 +91,11 @@ void SocketCAN::FramesListener()
 		if( recvBytes < 0 )
 		{
 			this->IsConnected = false;
-			perror("can raw socket read");
-			throw std::current_exception();
+			throw Exception("SocketCAN::read", strerror(errno));
 		}
 		if( recvBytes < sizeof(struct can_frame) )
 		{
-			fprintf(stderr, "read: incomplete CAN frame\n");
-			throw std::exception();
+			throw Exception("SocketCAN::read()", strerror(errno));
 		}
 		this->RecvBuffer.push_back(RecvFrame);
 		//cout <<  i++ << ". RECV: 0x" << std::hex << recvFrame.can_id << " # 0x" <<  std::hex << ((int)recvFrame.can_dlc) << " # " << std::hex << recvFrame.data << endl;

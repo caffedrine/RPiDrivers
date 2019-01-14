@@ -5,6 +5,7 @@
 #ifndef _I2C_H_
 #define _I2C_H_
 
+#include <sstream>
 #include <stdio.h>
 #include <unistd.h>
 #include <fcntl.h>

@@ -15,7 +15,7 @@ Spi::Spi(const char *dev)
 	this->spidev_fd = open(dev, O_RDWR);
 	if( this->spidev_fd < 0 )
 	{
-		std::string desc = "open( \"";
+		std::string desc = "Spi::open( \"";
 		desc += std::string(dev);
 		desc += "\" ): ";
 		desc += strerror(errno);
@@ -69,7 +69,7 @@ int Spi::Read(char *rx_buffer, const int n_words)
 	transfer.cs_change = 0;
 	if( ioctl(spidev_fd, SPI_IOC_MESSAGE(1), &transfer) < 0 )
 	{
-		throw Exception("Read", strerror(errno));
+		throw Exception("Spi::Read", strerror(errno));
 	}
 	return (n_bytes << 3) / bits_per_word;
 }
@@ -78,7 +78,7 @@ int Spi::Write(const char *tx_data, const int n_words)
 {
 	uint8_t bits_per_word = GetBitsPerWord();
 	if( bits_per_word < 0 )
-		throw Exception("Write", "Invalid bits per word value!");
+		throw Exception("Spi::Write", "Invalid bits per word value!");
 	
 	/* Calculate number of bytes to transfer */
 	uint32_t n_bytes = (uint32_t) (((float) (bits_per_word * n_words)) / 8.0 + 0.5);
@@ -101,7 +101,7 @@ int Spi::Write(const char *tx_data, const int n_words)
 	int writeStatus = ioctl(spidev_fd, SPI_IOC_MESSAGE(1), &transfer);
 	if( writeStatus < 0 )
 	{
-		throw Exception("Write", strerror(errno));
+		throw Exception("Spi::Write", strerror(errno));
 	}
 	return 1;
 }
@@ -158,7 +158,7 @@ int Spi::Transaction(char *tx_data, int tx_n_words, char *rx_data, int rx_n_word
 	
 	if( ioctl(spidev_fd, SPI_IOC_MESSAGE(n_transfers), transfers) < 0 )
 	{
-		throw Exception("Transaction", strerror(errno));
+		throw Exception("Spi::Transaction", strerror(errno));
 	}
 	return (n_rx_bytes << 3) / bits_per_word;
 }
@@ -186,7 +186,7 @@ int Spi::Transfer(char *tx_data, char *rx_data, char n_words)
 	transfer.cs_change = 0;
 	if (ioctl(spidev_fd, SPI_IOC_MESSAGE(1), &transfer) < 0)
 	{
-		throw Exception("Transfer",  strerror(errno));
+		throw Exception("Spi::Transfer",  strerror(errno));
 	}
 	return (n_bytes<<3) / bits_per_word;
 }
@@ -207,13 +207,13 @@ uint8_t Spi::SetBitsPerWord(uint8_t bits)
 {
 	if( ioctl(this->spidev_fd, SPI_IOC_WR_BITS_PER_WORD, &bits) == -1 )
 	{
-		throw Exception("SetBitsPerWord", strerror(errno));
+		throw Exception("Spi::SetBitsPerWord", strerror(errno));
 	}
 	
 	uint8_t BitsSet;
 	if( ioctl(this->spidev_fd, SPI_IOC_RD_BITS_PER_WORD, &BitsSet) == -1 )
 	{
-		throw Exception("SetBitsPerWord", strerror(errno));
+		throw Exception("Spi::SetBitsPerWord", strerror(errno));
 	}
 	return BitsSet;
 }
@@ -223,7 +223,7 @@ uint8_t Spi::GetBitsPerWord()
 	uint8_t BitsSet;
 	if( ioctl(this->spidev_fd, SPI_IOC_RD_BITS_PER_WORD, &BitsSet) == -1 )
 	{
-		throw Exception("GetBitsPerWord", strerror(errno));
+		throw Exception("Spi::GetBitsPerWord", strerror(errno));
 	}
 	return BitsSet;
 }
@@ -231,11 +231,11 @@ uint8_t Spi::GetBitsPerWord()
 uint32_t Spi::SetSpeedHz(uint32_t speed)
 {
 	if( ioctl(spidev_fd, SPI_IOC_WR_MAX_SPEED_HZ, &speed) == -1 )
-		throw Exception("SetSpeedHz", strerror(errno));
+		throw Exception("Spi::SetSpeedHz", strerror(errno));
 	
 	uint32_t SpeedSet;
 	if( ioctl(spidev_fd, SPI_IOC_RD_MAX_SPEED_HZ, &SpeedSet) == -1 )
-		throw Exception("SetSpeedHz", strerror(errno));
+		throw Exception("Spi::SetSpeedHz", strerror(errno));
 	return SpeedSet;
 }
 
@@ -243,7 +243,7 @@ uint32_t Spi::GetSpeedHz()
 {
 	uint32_t SpeedSet;
 	if( ioctl(spidev_fd, SPI_IOC_RD_MAX_SPEED_HZ, &SpeedSet) == -1 )
-		throw Exception("GetSpeedHz", strerror(errno));
+		throw Exception("Spi::GetSpeedHz", strerror(errno));
 	return SpeedSet;
 }
 
@@ -258,7 +258,7 @@ uint8_t Spi::GetMode()
 {
 	uint8_t ModeSet;
 	if( ioctl(spidev_fd, SPI_IOC_RD_MODE, &ModeSet) == -1 )
-		throw Exception("GetMode", strerror(errno));
+		throw Exception("Spi::GetMode", strerror(errno));
 	return ModeSet;
 }
 
@@ -275,11 +275,11 @@ uint8_t Spi::SetMode(uint8_t mode)
 		 * mode |= SPI_READY;
 	 */
 	if( ioctl(spidev_fd, SPI_IOC_WR_MODE, &mode) == -1 )
-		throw Exception("SetMode", strerror(errno));
+		throw Exception("Spi::SetMode", strerror(errno));
 	
 	uint8_t ModeSet;
 	if( ioctl(spidev_fd, SPI_IOC_RD_MODE, &ModeSet) == -1 )
-		throw Exception("SetMode", strerror(errno));
+		throw Exception("Spi::SetMode", strerror(errno));
 	return ModeSet;
 }
 
@@ -388,7 +388,7 @@ void Spi::BackgroundWork()
 			this->RecvBytes = (int) read(this->spidev_fd, this->RecvBuffer, this->MAX_TRANSFER_SIZE);
 			
 			if( this->RecvBytes < 0 )
-				throw Exception("read", strerror(errno));
+				throw Exception("Spi::read", strerror(errno));
 			else if( this->RecvBytes > 0 )
 			{
 				//sDataReceived(this->RecvBuffer, this->RecvBytes);

@@ -13,17 +13,10 @@
 #include <linux/types.h>
 #include <linux/spi/spidev.h>
 
+#include "Exception/Exception.h"
+
 class Spi
 {
-	struct Exception : public std::exception
-	{
-		std::string s;
-		explicit Exception(std::string ss): s(ss) {}
-		Exception(std::string function, std::string ss) : s( function + "(): " + ss ) {}
-		~Exception() throw () {} // Updated
-		const char* what() const throw() override { return s.c_str(); }
-	};
-	
 public:
 	enum class BitOrder
 	{

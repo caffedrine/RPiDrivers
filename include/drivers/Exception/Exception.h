@@ -9,25 +9,22 @@
 
 struct Exception : public std::exception
 {
-	std::string s;
-	explicit Exception(std::string ss): s(std::move(ss))
+	std::string ExceptionDescription;
+	explicit Exception(std::string ss): ExceptionDescription(std::move(ss))
 	{
 	
 	}
 	
-	Exception(std::string function, std::string ss) : s("[EXCEPTION] " +  function + "(): " + ss )
+	Exception(const std::string &function, const std::string &ss): ExceptionDescription("[EXCEPTION] " +  function + ": " + ss )
 	{
 	
 	}
 	
-	~Exception() throw () override
-	{
+	~Exception() noexcept override = default;
 	
-	}
-	
-	const char* what() const throw() override
+	const char* what() const noexcept override
 	{
-		return s.c_str();
+		return ExceptionDescription.c_str();
 	}
 };
 

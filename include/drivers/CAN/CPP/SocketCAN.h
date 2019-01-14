@@ -14,7 +14,7 @@
 #include <bits/ioctls.h>
 #include <linux/can.h>
 
-
+#include "Exception/Exception.h"
 
 /* Recv buffer */
 #include <queue>
