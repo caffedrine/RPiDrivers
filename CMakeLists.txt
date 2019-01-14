@@ -7,25 +7,25 @@ set(CMAKE_CXX_STANDARD 11)
 set(PIGPIO 1)
 
 ######################################Include everuthing src##################################
-file(GLOB_RECURSE RPiFirmware_SOURCES "src/*.cpp")
-file(GLOB_RECURSE RPiFirmware_HEADERS "src/*.h")
+file(GLOB_RECURSE Proj_SOURCES "src/*.cpp")
+file(GLOB_RECURSE Proj_HEADERS "src/*.h")
 
-set (RPiFirmware_INCLUDE_DIRS "include/")
-foreach (_headerFile ${RPiFirmware_HEADERS})
+set (Proj_INCLUDE_DIRS "include/")
+foreach (_headerFile ${Proj_HEADERS})
     get_filename_component(_dir ${_headerFile} PATH)
-    list (APPEND RPiFirmware_INCLUDE_DIRS ${_dir})
+    list (APPEND Proj_INCLUDE_DIRS ${_dir})
 endforeach()
-list(REMOVE_DUPLICATES RPiFirmware_INCLUDE_DIRS)
+list(REMOVE_DUPLICATES Proj_INCLUDE_DIRS)
 ##############################################################################################
 
-add_executable (RPiFirmwareExe ${RPiFirmware_SOURCES})
-target_include_directories(RPiFirmwareExe PRIVATE ${RPiFirmware_INCLUDE_DIRS})
+add_executable (${PROJECT_NAME} ${Proj_SOURCES})
+target_include_directories(${PROJECT_NAME} PRIVATE ${Proj_INCLUDE_DIRS})
 
-target_link_libraries(RPiFirmwareExe pthread)
+target_link_libraries(${PROJECT_NAME} pthread)
 
 #Enable pigpio if on RPi
 if(PIGPIO)
     add_definitions(-DPIGPIO=1)
-    target_link_libraries(RPiFirmwareExe pigpio)
-    target_link_libraries(RPiFirmwareExe rt)
+    target_link_libraries(${PROJECT_NAME} pigpio)
+    target_link_libraries(${PROJECT_NAME} rt)
 endif()
