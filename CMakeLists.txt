@@ -10,7 +10,7 @@ set(PIGPIO 0)
 file(GLOB_RECURSE Proj_SOURCES "src/*.cpp" "src/*.c" "include/*.c" "include/*.cpp")
 file(GLOB_RECURSE Proj_HEADERS "src/*.h" "src/*.hpp")
 
-set( Proj_INCLUDE_DIRS "include/")
+set( Proj_INCLUDE_DIRS "include/" "include/drivers/")
 foreach (_headerFile ${Proj_HEADERS})
     get_filename_component(_dir ${_headerFile} PATH)
     list (APPEND Proj_INCLUDE_DIRS ${_dir})

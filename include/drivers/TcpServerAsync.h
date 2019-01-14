@@ -18,6 +18,7 @@
 #include <netinet/in.h>
 #include <sys/time.h>	//FD_SET, FD_ISSET, FD_ZERO macros
 #include <thread>
+#include "Exception.h"
 
 class TcpServerAsync
 {
@@ -48,14 +49,6 @@ public:
 		
 	}client_t;
 	
-	struct Exception : public std::exception
-	{
-		std::string s;
-		explicit Exception(std::string ss): s(std::move(ss)) {}
-		Exception(std::string function, std::string ss) : s( function + "(): " + ss ) {}
-		~Exception() throw () {} // Updated
-		const char* what() const throw() override { return s.c_str(); }
-	};
 	static const uint16_t RECV_BUFFER_SIZE = 256;
 	
 	TcpServerAsync(uint16_t port, uint16_t max_clients);
