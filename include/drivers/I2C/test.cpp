@@ -1,3 +1,4 @@
+#ifdef I2C_TEST
 
 #include <iostream>
 
@@ -59,3 +60,5 @@ int main()
 		TimeUtils::SleepMs(1000);
 	}
 }
+
+#endif

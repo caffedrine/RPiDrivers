@@ -25,11 +25,12 @@ public:
 	void StartSession(int SlaveAddress);
 	void StopSession();
 	
-	int Write(uint8_t *data, uint16_t len);
+	int Write(uint8_t *data, uint16_t len, uint16_t RegAddr);
 	int Read(uint8_t *recv_buffer, uint16_t max_len = 255);
 	
 private:
-	int hFile = 0;
+	int fd;
+	int SlaveAddr;
 };
 
 

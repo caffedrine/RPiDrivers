@@ -4,7 +4,7 @@ project(RPiDrivers)
 set(CMAKE_CXX_STANDARD 11)
 
 # Enable PiGPIO if installed
-set(PIGPIO 1)
+set(PIGPIO 0)
 
 ######################################Include everuthing src##################################
 file(GLOB_RECURSE Proj_SOURCES "src/*.cpp" "src/*.c" "include/*.c" "include/*.cpp")

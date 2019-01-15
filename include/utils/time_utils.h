@@ -8,9 +8,16 @@
 #include <sstream>
 #include <mutex>
 #include <condition_variable>
+#include <thread>
 
 namespace TimeUtils
 {
+
+
+static inline void SleepMs(uint32_t ms)
+{
+	std::this_thread::sleep_for(std::chrono::milliseconds(ms));
+}
 /* Get time stamp in milliseconds */
 static inline uint64_t millis()
 {
